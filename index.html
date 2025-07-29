@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+  <title>Registro para la Cena de Pastores</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Registro oficial para la cena de pastores. Confirma tu asistencia de manera rápida y sencilla.">
+  <meta name="keywords" content="cena pastores, registro, iglesia, confirmación asistencia">
+  <meta name="author" content="Organización de la Cena">
+
+  <!-- PWA Meta Tags -->
+  <meta name="theme-color" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Registro Cena">
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" href="icon-192.png">
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Schema.org para SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "Cena de Pastores",
+    "description": "Evento especial para pastores y líderes religiosos",
+    "organizer": {
+      "@type": "Organization",
+      "name": "Organización de la Cena"
+    }
+  }
+  </script>
+</head>
+<body>
+  <div class="background"></div>
+  <div class="overlay"></div>
+  <div class="grid-pattern"></div>
+
+  <div class="container">
+    <div class="form-card">
+      <div class="header">
+        <h1>
+          <i class="fas fa-utensils"></i>
+          Registro para la Cena
+        </h1>
+        <p>Complete el formulario para confirmar su asistencia</p>
+      </div>
+
+      <form id="registroForm" novalidate>
+        <div class="form-group">
+          <label for="nombre">
+            <i class="fas fa-user"></i>
+            Nombre <span class="required">*</span>
+          </label>
+          <div class="input-wrapper">
+            <input type="text" id="nombre" name="nombre" class="form-input" required maxlength="50" placeholder="Ingrese su nombre" autocomplete="given-name" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="apellido">
+            <i class="fas fa-user"></i>
+            Apellido <span class="required">*</span>
+          </label>
+          <div class="input-wrapper">
+            <input type="text" id="apellido" name="apellido" class="form-input" required maxlength="50" placeholder="Ingrese su apellido" autocomplete="family-name" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">
+            <i class="fas fa-envelope"></i>
+            Correo electrónico <span class="required">*</span>
+          </label>
+          <div class="input-wrapper">
+            <input type="email" id="email" name="email" class="form-input" required placeholder="ejemplo@correo.com" autocomplete="email" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="telefono">
+            <i class="fas fa-phone"></i>
+            Teléfono <span class="required">*</span>
+          </label>
+          <div class="input-wrapper">
+            <input type="tel" id="telefono" name="telefono" class="form-input" required maxlength="20" placeholder="+58 412-1234567" autocomplete="tel" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="iglesia">
+            <i class="fas fa-church"></i>
+            Iglesia / Congregación <span class="required">*</span>
+          </label>
+          <div class="input-wrapper">
+            <input type="text" id="iglesia" name="iglesia" class="form-input" required maxlength="150" placeholder="Nombre de su iglesia" autocomplete="organization" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmacion">
+            <i class="fas fa-check-circle"></i>
+            Estado de Confirmación
+          </label>
+          <div class="input-wrapper">
+            <select id="confirmacion" name="confirmacion" class="form-select">
+              <option value="PENDIENTE">Pendiente</option>
+              <option value="SI">Confirmado - SÍ</option>
+              <option value="NO">Confirmado - NO</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn" id="btnSubmit">
+          <i class="fas fa-paper-plane"></i>
+          Confirmar Asistencia
+        </button>
+      </form>
+
+      <div id="mensaje" class="message" style="display:none;"></div>
+
+      <div class="footer">
+        <p>
+          <i class="fas fa-shield-alt"></i>
+          Sus datos están protegidos y solo serán utilizados para el evento
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div id="loading" class="loading-overlay" style="display:none;">
+    <div class="loading-content">
+      <i class="fas fa-spinner"></i>
+      <p>Procesando registro...</p>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
