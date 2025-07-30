@@ -94,9 +94,59 @@ body {
   gap: 12px;
 }
 
-.header h1 i {
-  color: #667eea;
-  font-size: 32px;
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 68px;
+  height: 68px;
+  border-radius: 20%;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin: 0 auto 15px auto;
+  align-self: center;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 2px 8px rgba(102, 126, 234, 0.3));
+}
+
+.event-logo {
+  width: 68px;
+  height: 68px;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 2px 8px rgba(102, 126, 234, 0.3));
+}
+
+/* Estilos específicos para PNG de alta calidad */
+.png-logo {
+  /* Usa la imagen a su tamaño original y escala con CSS */
+  object-fit: contain;
+  /* Mejora la calidad de renderizado */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  /* Suavizado para mejor calidad */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.event-logo:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* Responsive - Escalado inteligente */
+@media (max-width: 480px) {
+  .event-logo {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 320px) {
+  .event-logo {
+    width: 36px;
+    height: 36px;
+  }
 }
 
 .header p {
