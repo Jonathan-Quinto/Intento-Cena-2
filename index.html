@@ -53,14 +53,11 @@
   <div class="container">
     <div class="form-card">
       <div class="logo-container">
-            <!-- Opción con PNG de alta resolución -->
-            <img src="pictures/Conexiones 2025.png" alt="Logo del Evento" class="event-logo png-logo">
-          </div>
+        <!-- Opción con PNG de alta resolución -->
+        <img src="pictures/Conexiones 2025.png" alt="Logo del Evento" class="event-logo png-logo">
+      </div>
       <div class="header">
-        <h1>
-        
-          Registro para Conexiones 2025
-        </h1>
+        <h1>Registro para Conexiones 2025</h1>
         <p>Sesión especial de Ekklesia Juvenil para pastores y líderes juveniles regístrate aquí</p>
       </div>
 
@@ -112,6 +109,81 @@
           </label>
           <div class="input-wrapper">
             <input type="text" id="iglesia" name="Iglesia" class="form-input" required maxlength="150" placeholder="Nombre de su iglesia" autocomplete="organization" />
+          </div>
+        </div>
+
+        <!-- Nueva sección de ubicación -->
+        <div class="form-group">
+          <label class="location-type-label">
+            <i class="fas fa-map-marker-alt"></i>
+            Ubicación <span class="required">*</span>
+          </label>
+          
+          <!-- Checkboxes para tipo de ubicación -->
+          <div class="location-type-container">
+            <div class="checkbox-group">
+              <input type="radio" id="localidad" name="tipoUbicacion" value="localidad" class="location-radio">
+              <label for="localidad" class="checkbox-label">
+                <i class="fas fa-flag"></i>
+                Nacional (Panamá)
+              </label>
+            </div>
+            <div class="checkbox-group">
+              <input type="radio" id="internacional" name="tipoUbicacion" value="internacional" class="location-radio">
+              <label for="internacional" class="checkbox-label">
+                <i class="fas fa-globe"></i>
+                Internacional
+              </label>
+            </div>
+          </div>
+
+          <!-- Select para provincias de Panamá -->
+          <div class="input-wrapper" id="provinciaContainer" style="display: none;">
+            <select id="provincia" name="Ubicacion" class="form-select">
+              <option value="">Seleccione su provincia</option>
+              <option value="Panamá">Panamá</option>
+              <option value="Colón">Colón</option>
+              <option value="Chiriquí">Chiriquí</option>
+              <option value="Veraguas">Veraguas</option>
+              <option value="Los Santos">Los Santos</option>
+              <option value="Herrera">Herrera</option>
+              <option value="Coclé">Coclé</option>
+              <option value="Darién">Darién</option>
+              <option value="Panamá Oeste">Panamá Oeste</option>
+              <option value="Bocas del Toro">Bocas del Toro</option>
+              <option value="Comarca Guna Yala">Comarca Guna Yala</option>
+              <option value="Comarca Emberá-Wounaan">Comarca Emberá-Wounaan</option>
+              <option value="Comarca Ngäbe-Buglé">Comarca Ngäbe-Buglé</option>
+            </select>
+          </div>
+
+          <!-- Select para países -->
+          <div class="input-wrapper" id="paisContainer" style="display: none;">
+            <select id="pais" name="Ubicacion" class="form-select">
+              <option value="">Seleccione su país</option>
+              <option value="Argentina">Argentina</option>
+              <option value="Bolivia">Bolivia</option>
+              <option value="Brasil">Brasil</option>
+              <option value="Chile">Chile</option>
+              <option value="Colombia">Colombia</option>
+              <option value="Costa Rica">Costa Rica</option>
+              <option value="Cuba">Cuba</option>
+              <option value="Ecuador">Ecuador</option>
+              <option value="El Salvador">El Salvador</option>
+              <option value="España">España</option>
+              <option value="Estados Unidos">Estados Unidos</option>
+              <option value="Guatemala">Guatemala</option>
+              <option value="Honduras">Honduras</option>
+              <option value="México">México</option>
+              <option value="Nicaragua">Nicaragua</option>
+              <option value="Paraguay">Paraguay</option>
+              <option value="Perú">Perú</option>
+              <option value="Puerto Rico">Puerto Rico</option>
+              <option value="República Dominicana">República Dominicana</option>
+              <option value="Uruguay">Uruguay</option>
+              <option value="Venezuela">Venezuela</option>
+              <option value="Otro">Otro país</option>
+            </select>
           </div>
         </div>
 

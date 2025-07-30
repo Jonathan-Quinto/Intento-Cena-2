@@ -3,6 +3,7 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxFlzHwkWMzsp
 
 // Elementos del DOM
 let form, submitBtn, mensajeDiv, loadingOverlay;
+let localidadRadio, internacionalRadio, provinciaContainer, paisContainer, provinciaSelect, paisSelect;
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', function() {
@@ -17,6 +18,14 @@ function initializeApp() {
     mensajeDiv = document.getElementById('mensaje');
     loadingOverlay = document.getElementById('loading');
     
+    // Elementos de ubicación
+    localidadRadio = document.getElementById('localidad');
+    internacionalRadio = document.getElementById('internacional');
+    provinciaContainer = document.getElementById('provinciaContainer');
+    paisContainer = document.getElementById('paisContainer');
+    provinciaSelect = document.getElementById('provincia');
+    paisSelect = document.getElementById('pais');
+    
     if (!form || !submitBtn || !mensajeDiv) {
         console.error('❌ Error: No se pudieron encontrar los elementos del DOM');
         return;
@@ -24,6 +33,7 @@ function initializeApp() {
     
     console.log('✅ Elementos del DOM encontrados');
     initializeForm();
+    initializeLocationHandlers();
 }
 
 function initializeForm() {
@@ -38,6 +48,55 @@ function initializeForm() {
     form.addEventListener('submit', handleFormSubmit);
     
     console.log('✅ Formulario inicializado correctamente');
+}
+
+function initializeLocationHandlers() {
+    // Event listeners para los radio buttons de ubicación
+    if (localidadRadio) {
+        localidadRadio.addEventListener('change', function() {
+            if (this.checked) {
+                showLocationContainer('provincia');
+                // Limpiar el país si estaba seleccionado
+                if (paisSelect) paisSelect.value = '';
+            }
+        });
+    }
+    
+    if (internacionalRadio) {
+        internacionalRadio.addEventListener('change', function() {
+            if (this.checked) {
+                showLocationContainer('pais');
+                // Limpiar la provincia si estaba seleccionada
+                if (provinciaSelect) provinciaSelect.value = '';
+            }
+        });
+    }
+    
+    console.log('✅ Manejadores de ubicación inicializados');
+}
+
+function showLocationContainer(type) {
+    if (type === 'provincia') {
+        // Mostrar provincias, ocultar países
+        if (provinciaContainer) {
+            provinciaContainer.style.display = 'block';
+            provinciaSelect.required = true;
+        }
+        if (paisContainer) {
+            paisContainer.style.display = 'none';
+            paisSelect.required = false;
+        }
+    } else if (type === 'pais') {
+        // Mostrar países, ocultar provincias
+        if (paisContainer) {
+            paisContainer.style.display = 'block';
+            paisSelect.required = true;
+        }
+        if (provinciaContainer) {
+            provinciaContainer.style.display = 'none';
+            provinciaSelect.required = false;
+        }
+    }
 }
 
 function validateField(e) {
@@ -74,6 +133,21 @@ async function handleFormSubmit(e) {
         // Recopilar datos del formulario usando FormData
         const formData = new FormData(form);
         
+        // Manejar la ubicación especialmente
+        const tipoUbicacion = document.querySelector('input[name="tipoUbicacion"]:checked');
+        if (tipoUbicacion) {
+            let ubicacionValue = '';
+            if (tipoUbicacion.value === 'localidad' && provinciaSelect.value) {
+                ubicacionValue = `Panamá - ${provinciaSelect.value}`;
+            } else if (tipoUbicacion.value === 'internacional' && paisSelect.value) {
+                ubicacionValue = paisSelect.value;
+            }
+            
+            // Actualizar el FormData con la ubicación procesada
+            formData.set('Ubicacion', ubicacionValue);
+            formData.set('TipoUbicacion', tipoUbicacion.value);
+        }
+        
         // Convertir FormData a objeto para logging
         const dataObj = {};
         for (let [key, value] of formData.entries()) {
@@ -96,6 +170,7 @@ async function handleFormSubmit(e) {
         // Limpiar formulario
         form.reset();
         resetFieldStyles();
+        resetLocationContainers();
         
         console.log('✅ Formulario procesado correctamente');
         
@@ -134,6 +209,17 @@ function validateFormData(data) {
     // Validar nombre y apellido (mínimo 2 caracteres)
     if (data.Nombre.trim().length < 2 || data.Apellido.trim().length < 2) {
         console.error('❌ Nombre o apellido muy corto');
+        return false;
+    }
+    
+    // Validar ubicación
+    if (!data.TipoUbicacion) {
+        console.error('❌ Debe seleccionar el tipo de ubicación');
+        return false;
+    }
+    
+    if (!data.Ubicacion || data.Ubicacion.trim() === '') {
+        console.error('❌ Debe seleccionar una ubicación específica');
         return false;
     }
     
@@ -237,6 +323,18 @@ function resetFieldStyles() {
         input.style.borderColor = '#e1e5e9';
         input.classList.remove('valid', 'invalid');
     });
+}
+
+function resetLocationContainers() {
+    // Ocultar ambos contenedores de ubicación
+    if (provinciaContainer) {
+        provinciaContainer.style.display = 'none';
+        provinciaSelect.required = false;
+    }
+    if (paisContainer) {
+        paisContainer.style.display = 'none';
+        paisSelect.required = false;
+    }
 }
 
 // Función para debug (opcional)

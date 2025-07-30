@@ -19,7 +19,9 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-image: url('pictures/EKKJ25.jpeg');
+  background-size: cover;
+  background-position: center;
   z-index: -3;
 }
 
@@ -29,7 +31,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.4);
   z-index: -2;
 }
 
@@ -39,11 +41,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.1;
-  background-image: 
-    linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px);
-  background-size: 20px 20px;
+  background-size: 40px 40px;
   z-index: -1;
 }
 
@@ -53,10 +51,11 @@ body {
   align-items: center;
   justify-content: center;
   padding: 20px;
+  opacity: 80%;
 }
 
 .form-card {
-  background: white;
+  background: rgb(255, 255, 255);
   padding: 40px;
   border-radius: 20px;
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
@@ -119,34 +118,16 @@ body {
 
 /* Estilos específicos para PNG de alta calidad */
 .png-logo {
-  /* Usa la imagen a su tamaño original y escala con CSS */
   object-fit: contain;
-  /* Mejora la calidad de renderizado */
   image-rendering: -webkit-optimize-contrast;
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
-  /* Suavizado para mejor calidad */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 .event-logo:hover {
   transform: scale(1.1) rotate(5deg);
-}
-
-/* Responsive - Escalado inteligente */
-@media (max-width: 480px) {
-  .event-logo {
-    width: 40px;
-    height: 40px;
-  }
-}
-
-@media (max-width: 320px) {
-  .event-logo {
-    width: 36px;
-    height: 36px;
-  }
 }
 
 .header p {
@@ -181,6 +162,7 @@ label i {
 
 .input-wrapper {
   position: relative;
+  margin-top: 8px;
 }
 
 .form-input, .form-select {
@@ -209,6 +191,84 @@ label i {
 .form-input::placeholder {
   color: #aaa;
   font-weight: 400;
+}
+
+/* Estilos para la sección de ubicación */
+.location-type-label {
+  margin-bottom: 12px !important;
+}
+
+.location-type-container {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.location-radio {
+  display: none;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: #f8f9fa;
+  border: 2px solid #e1e5e9;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  color: #666;
+  min-width: 140px;
+  justify-content: center;
+}
+
+.checkbox-label:hover {
+  border-color: #667eea;
+  background: #f0f4ff;
+  transform: translateY(-1px);
+}
+
+.location-radio:checked + .checkbox-label {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: #667eea;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.location-radio:checked + .checkbox-label i {
+  color: white;
+}
+
+.checkbox-label i {
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+/* Animación para los contenedores de ubicación */
+#provinciaContainer, #paisContainer {
+  animation: slideDown 0.4s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    max-height: 100px;
+    transform: translateY(0);
+  }
 }
 
 .submit-btn {
@@ -354,11 +414,20 @@ label i {
   }
   
   .form-input, .form-select, .submit-btn {
-    font-size: 16px; /* Evita zoom en iOS */
+    font-size: 16px;
   }
   
   .container {
     padding: 15px;
+  }
+
+  .location-type-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .checkbox-label {
+    min-width: 100%;
   }
 }
 
@@ -380,15 +449,27 @@ label i {
   .submit-btn {
     padding: 15px;
   }
+
+  .event-logo {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 320px) {
+  .event-logo {
+    width: 36px;
+    height: 36px;
+  }
 }
 
 /* Estados de validación mejorados */
-.form-input.valid {
+.form-input.valid, .form-select.valid {
   border-color: #28a745;
   background-color: #f8fff9;
 }
 
-.form-input.invalid {
+.form-input.invalid, .form-select.invalid {
   border-color: #dc3545;
   background-color: #fff8f8;
 }
@@ -405,6 +486,8 @@ label i {
 .form-group:nth-child(4) { animation-delay: 0.4s; }
 .form-group:nth-child(5) { animation-delay: 0.5s; }
 .form-group:nth-child(6) { animation-delay: 0.6s; }
+.form-group:nth-child(7) { animation-delay: 0.7s; }
+.form-group:nth-child(8) { animation-delay: 0.8s; }
 
 @keyframes slideInLeft {
   from {
